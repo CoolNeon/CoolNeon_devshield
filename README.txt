@@ -49,6 +49,8 @@ The following aliases are defined for the Developer Shield inputs:
   DEVSHIELD_MOMENTARY2  5   (momentary button 2, upper)
   DEVSHIELD_SWITCH1     6   (two-position switch 1, lower)
   DEVSHIELD_SWITCH2     7   (two-position switch 2, upper)
+  DEVSHIELD_DATAPIN    11   Data Pin on the 4-pin LED connector
+  DEVSHIELD_CLOCKPIN   13   Clock Pin on the 4-pin LED connector
 
 Reading Inputs
 --------------

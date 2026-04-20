@@ -25,6 +25,8 @@
 #define DEVSHIELD_MOMENTARY2 5
 #define DEVSHIELD_SWITCH1    6
 #define DEVSHIELD_SWITCH2    7
+#define DEVSHIELD_DATAPIN   11
+#define DEVSHIELD_CLOCKPIN  13
 
 
 class DevShieldClass {
