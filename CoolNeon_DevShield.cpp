@@ -8,7 +8,7 @@
  * is included in the file LICENSE.txt
  ****************************************************************************/
 
-#include "DevShield.h"
+#include "CoolNeon_DevShield.h"
 
 DevShieldClass DevShield;
 

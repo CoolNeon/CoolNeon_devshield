@@ -16,7 +16,7 @@
  * https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
  ****************************************************************************/
 
-#include <DevShield.h>
+#include <CoolNeon_DevShield.h>
 
 // color_temp indices: 1=red, 2=green, 3=blue (index 0 unused)
 byte color_temp[4];
