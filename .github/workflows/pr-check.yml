@@ -25,6 +25,10 @@ jobs:
             echo "::error file=library.properties::Version ${VERSION} already exists as a release. Bump the version before merging."
             exit 1
           fi
+          if gh release view "${VERSION}" --repo "${{ github.repository }}" > /dev/null 2>&1; then
+            echo "::error file=library.properties::Version ${VERSION} already exists as a release. Bump the version before merging."
+            exit 1
+          fi
           echo "Version ${VERSION} is not yet released. OK."
 
   arduino-lint:
