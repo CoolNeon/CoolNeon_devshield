@@ -8,7 +8,7 @@ jobs:
     name: Version not already released
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Extract version from library.properties
         id: props
@@ -21,10 +21,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="${{ steps.props.outputs.version }}"
-          if gh release view "v${VERSION}" --repo "${{ github.repository }}" > /dev/null 2>&1; then
-            echo "::error file=library.properties::Version v${VERSION} already exists as a release. Bump the version before merging."
-            exit 1
-          fi
           if gh release view "${VERSION}" --repo "${{ github.repository }}" > /dev/null 2>&1; then
             echo "::error file=library.properties::Version ${VERSION} already exists as a release. Bump the version before merging."
             exit 1
@@ -35,7 +31,7 @@ jobs:
     name: Arduino Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: arduino/arduino-lint-action@v2
         with:
