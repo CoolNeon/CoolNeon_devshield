@@ -1,0 +1,22 @@
+<project name="arduino-devshield" default="zip" basedir=".">
+
+  <target name="init">
+    <property name="version" value="2.0.0"/>
+    <property name="zipname" value="arduino-devshield-${version}.zip"/>
+  </target>
+
+  <target name="zip" depends="init">
+    <zip destfile="${zipname}">
+      <zipfileset dir="." prefix="DevShield">
+        <include name="*.h"/>
+        <include name="*.cpp"/>
+        <include name="*.txt"/>
+      </zipfileset>
+      <zipfileset dir="examples" prefix="DevShield/examples"/>
+    </zip>
+  </target>
+
+  <target name="clean" depends="init">
+    <delete file="${zipname}"/>
+  </target>
+</project>
