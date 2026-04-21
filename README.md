@@ -98,3 +98,13 @@ So, for example to read the state of button 1:
 ```cpp
 state = digitalRead(DEVSHIELD_MOMENTARY1);
 ```
+
+## Contributing
+
+Contributions are welcome via pull requests. Please follow these guidelines before submitting:
+
+1. **Update the version** in `library.properties` following [Semantic Versioning](https://semver.org/) (e.g. `version=1.3.0`).
+2. **Update the revision history** in `CHANGELOG.md` with a brief description of the change.
+3. **Test your changes** on hardware before submitting.
+4. **Monitor PR checks** — ensure all automated checks pass before requesting a review. Address any failures before the PR will be considered.
+5. **Monitor cceptance** - Check the [Arduino version scan logs](https://downloads.arduino.cc/libraries/logs/github.com/CoolNeon/CoolNeon_devshield/) for acceptance.  They are updated hourly, so there may be a slight delay.
