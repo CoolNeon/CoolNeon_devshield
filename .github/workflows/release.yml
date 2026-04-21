@@ -21,18 +21,22 @@ jobs:
           VERSION=$(grep -m1 '^version=' library.properties | cut -d= -f2 | tr -d '[:space:]')
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Fail if version tag already exists as a release
+      - name: Check if version already released
+        id: check
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="${{ steps.props.outputs.version }}"
           if gh release view "${VERSION}" --repo "${{ github.repository }}" > /dev/null 2>&1; then
-            echo "::error file=library.properties::Version ${VERSION} already exists as a release. Bump the version before merging."
-            exit 1
+            echo "Version ${VERSION} already exists as a release. Skipping."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Version ${VERSION} is not yet released. OK."
+            echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
-          echo "Version ${VERSION} is not yet released. OK."
 
       - name: Create release
+        if: steps.check.outputs.exists != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

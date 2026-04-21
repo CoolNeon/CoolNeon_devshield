@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- `.github/copilot-instructions.md` — Copilot instruction file documenting project structure, API, naming conventions, and release process.
+
+### Changed
+- `release.yml`: version-already-released condition now skips the "Create release" step rather than failing the workflow
+- Corrected the name of the Examples category found in the Arduino IDE.
+
 ## [1.2.2] - 2026-04-22
 
 ### Changed

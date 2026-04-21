@@ -5,7 +5,7 @@ on:
 
 jobs:
   check-version:
-    name: Version not already released
+    name: Unreleased version check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -16,16 +16,17 @@ jobs:
           VERSION=$(grep -m1 '^version=' library.properties | cut -d= -f2 | tr -d '[:space:]')
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Fail if version tag already exists as a release
+      - name: Check if version already released
+        id: check
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="${{ steps.props.outputs.version }}"
           if gh release view "${VERSION}" --repo "${{ github.repository }}" > /dev/null 2>&1; then
-            echo "::error file=library.properties::Version ${VERSION} already exists as a release. Bump the version before merging."
-            exit 1
+            echo "::warning file=library.properties::Version ${VERSION} already exists as a release. Remember to bump the version if the intent is to publish a new release."
+          else
+            echo "Version ${VERSION} is not yet released. OK."
           fi
-          echo "Version ${VERSION} is not yet released. OK."
 
   arduino-lint:
     name: Arduino Lint
