@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - Reverted library name in `library.properties`
 - Added `CHANGELOG.md`
 - Added Contributing guidelines to `README.md`
+- Set PR check mode to update
 
 ## [1.2.1] - 2026-04-21
 
