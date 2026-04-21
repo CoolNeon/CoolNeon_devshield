@@ -10,7 +10,7 @@
  * This program is distributed under the Artistic License 2.0, a copy of which
  * is included in the file LICENSE.txt along with this library.
  ****************************************************************************/
-#include <DevShield.h>
+#include <CoolNeon_DevShield.h>
 
 const int update_interval = 100; // Milliseconds between serial updates
 

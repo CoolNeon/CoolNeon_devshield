@@ -28,7 +28,7 @@ Software
 --------
 Include the library header in your sketch:
 
-  #include <DevShield.h>
+  #include <CoolNeon_DevShield.h>
 
 Initialize the Developer Shield inputs by calling:
 
