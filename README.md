@@ -80,7 +80,7 @@ can be used to test if the state of the switches have changed.
 
 ## Example Code
 
-Several examples are loaded into the Arduino examples menu under `CoolNeon_DevShield`. These
+Several examples are loaded into the Arduino examples menu under `CoolNeon DevShield`. These
 examples include the following:
 
 **color_designer**  

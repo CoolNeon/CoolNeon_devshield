@@ -5,7 +5,7 @@ on:
 
 jobs:
   check-version:
-    name: Version not already released
+    name: Unreleased version check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -16,16 +16,36 @@ jobs:
           VERSION=$(grep -m1 '^version=' library.properties | cut -d= -f2 | tr -d '[:space:]')
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Fail if version tag already exists as a release
+      - name: Check if version already released
+        id: check
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="${{ steps.props.outputs.version }}"
           if gh release view "${VERSION}" --repo "${{ github.repository }}" > /dev/null 2>&1; then
-            echo "::error file=library.properties::Version ${VERSION} already exists as a release. Bump the version before merging."
-            exit 1
+            echo "already_released=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "already_released=false" >> "$GITHUB_OUTPUT"
+            echo "Version ${VERSION} is not yet released. OK."
           fi
-          echo "Version ${VERSION} is not yet released. OK."
+
+      - name: Post PR comment if version already released
+        if: steps.check.outputs.already_released == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ steps.props.outputs.version }}"
+          gh pr comment "${{ github.event.pull_request.number }}" \
+            --repo "${{ github.repository }}" \
+            --body "> [!WARNING]
+          > **Version \`${VERSION}\` has already been released.** If this PR is intended to publish a new release, bump the version in \`library.properties\` before merging."
+
+      - name: Fail if version already released
+        if: steps.check.outputs.already_released == 'true'
+        run: |
+          VERSION="${{ steps.props.outputs.version }}"
+          echo "::error file=library.properties::Version ${VERSION} already exists as a release. Bump the version before merging."
+          exit 1
 
   arduino-lint:
     name: Arduino Lint
